@@ -1,12 +1,6 @@
-package cats
+package cats;
 
-import org.springframework.stereotype.Component
+import org.springframework.data.repository.CrudRepository;
 
-@Component
-class CatsRepository {
-
-    def findAll(){
-        return []
-    }
-
+public interface CatsRepository extends CrudRepository<Cat, Long> {
 }

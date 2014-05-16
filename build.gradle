@@ -1,41 +1,46 @@
 apply plugin: 'groovy'
 apply plugin: 'spring-boot'
 apply plugin: 'idea'
+apply plugin: 'flyway'
 
 buildscript {
     repositories {
+        maven {
+            url = "http://repo.spring.io/repo"
+        }
+
         mavenCentral()
     }
+
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.0.2.RELEASE"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.1.0.BUILD-SNAPSHOT"
+        classpath 'com.googlecode.flyway:flyway-gradle-plugin:2.3.1'
     }
 }
 
 dependencies{
-    compile "org.springframework.boot:spring-boot-starter-web:1.0.2.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-web:1.1.0.BUILD-SNAPSHOT"
     compile 'org.codehaus.groovy:groovy-all:2.3.0'
-    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-actuator:1.1.0.BUILD-SNAPSHOT"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:1.1.0.BUILD-SNAPSHOT"
 
-    //{
-//        exclude module: "spring-boot-starter-tomcat"
-//    }
-//    compile "org.springframework.boot:spring-boot-starter-jetty"
-
+    compile "postgresql:postgresql:9.1-901.jdbc4"
 }
-//mainClassName = 'Application'
+
+flyway {
+    url = "jdbc:postgresql://localhost/groovy_cats_development"
+    user = 'pivotal'
+    password = ''
+}
 
 repositories{
+    maven {
+        url = "http://repo.spring.io/repo"
+    }
+
     mavenCentral()
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.11'
-}
-
-sourceSets {
-    main {
-        groovy {
-            srcDirs = ['app', 'public']
-        }
-    }
 }

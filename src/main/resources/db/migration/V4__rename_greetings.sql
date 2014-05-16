@@ -1,0 +1,1 @@
+ALTER TABLE Cats RENAME TO cat;
