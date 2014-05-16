@@ -1,0 +1,41 @@
+apply plugin: 'groovy'
+apply plugin: 'spring-boot'
+apply plugin: 'idea'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.0.2.RELEASE"
+    }
+}
+
+dependencies{
+    compile "org.springframework.boot:spring-boot-starter-web:1.0.2.RELEASE"
+    compile 'org.codehaus.groovy:groovy-all:2.3.0'
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+
+    //{
+//        exclude module: "spring-boot-starter-tomcat"
+//    }
+//    compile "org.springframework.boot:spring-boot-starter-jetty"
+
+}
+//mainClassName = 'Application'
+
+repositories{
+    mavenCentral()
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['app', 'public']
+        }
+    }
+}
